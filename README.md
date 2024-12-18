@@ -1,2 +1,2 @@
-# bingo-pro
+# Bingo Pro
 Automates the process of playing bingo
