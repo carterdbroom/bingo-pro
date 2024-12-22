@@ -4,26 +4,27 @@
 ###################################################################################
 import cv2
 import easyocr
+from pathlib import Path
 
 # The image path of where our test image is. 
-imagePath = "C:\\bingoImages\\roadClosedSign.jpg"
-
-# Preparing image input and grayscaling it for easier reading.
-img = cv2.imread(imagePath)
-gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+sourceDir = Path('C:/bingoImages/')
+files = sourceDir.iterdir()
 
 # Making our reader for the image.
 reader = easyocr.Reader(['en'])
 
-# Detecting text in the image.
-textData = reader.readtext(gray_image)
-
 # Will hold all the text in this list.
 data = []
 
-# Looping through the data to put the text in the data array.
-for (boundingBox, text, confidence) in textData:
-    data.append(text)
+for file in files:
+    # Preparing image input and grayscaling it for easier reading.
+    img = cv2.imread(file)
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Detecting text in the image.
+    textData = reader.readtext(gray_image)
+    # Looping through the data to put the text in the data array.
+    for (boundingBox, text, confidence) in textData:
+        data.append(text)
 
 # Displaying the data.
 print(data)
