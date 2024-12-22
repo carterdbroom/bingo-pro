@@ -2,6 +2,7 @@
 # Date Created: 2024-12-18
 # Date of Last Edit: 2024-12-18
 ###################################################################################
+import card
 class Game: 
     cards = None
     global lookUpTable

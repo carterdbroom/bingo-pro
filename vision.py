@@ -5,6 +5,7 @@
 import cv2
 import easyocr
 from pathlib import Path
+from card import Card
 
 # The image path of where our test image is. 
 sourceDir = Path('C:/bingoImages/')
@@ -13,9 +14,10 @@ files = sourceDir.iterdir()
 # Making our reader for the image.
 reader = easyocr.Reader(['en'])
 
-# Will hold all the text in this list.
+# Will hold all the text in the image.
 data = []
 
+# Iterating through all the files in the directory.
 for file in files:
     # Preparing image input and grayscaling it for easier reading.
     img = cv2.imread(file)
@@ -25,6 +27,20 @@ for file in files:
     # Looping through the data to put the text in the data array.
     for (boundingBox, text, confidence) in textData:
         data.append(text)
+    data.append("|END|")
+
+# This is list of Card objects which will encapsulate the data.
+cards = []
+
+# Encoding everything from the data array into Card opjects.
+for idx, val in enumerate(data):
+    # Get id and squares
+    # Encode into cards
+    None
+
+# Returns the list of Card objects.
+def getCards() -> list[Card]:
+    return cards
 
 # Displaying the data.
 print(data)

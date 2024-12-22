@@ -6,7 +6,7 @@ class Card:
     id  = None
     squares = None 
 
-    def __init__(self, id: int, squares: list[list[int]]):
+    def __init__(self, id: int, squares: list[list[list[int]]]):
         self.id = id
         self.squares = squares
     
