@@ -2,16 +2,16 @@
 # Date Created: 2024-12-18
 # Date of Last Edit: 2024-12-18
 ###################################################################################
-import card
+from card import Card
 class Game: 
-    cards = None
+    global cards
     global lookUpTable
 
     # In the constructor we initialize 
-    def __init__(self, cards: list[list[int]]):
+    def __init__(self, cards: list[Card]):
         self.cards = cards
         lookUpTable = {}
-        for card in enumerate(cards):
+        for card in cards:
             for square in card.squares():
                 for row in range(5):
                     for column in range(5):
@@ -27,15 +27,49 @@ class Game:
 
     # Checks every row for a line win.
     def checkRowWin():
-        return None
+        for card in cards:
+            for square in card.squares():
+                for row in range(5):
+                    marked = 0
+                    for column in range(5):
+                        number = square[row][column]
+                        if lookUpTable[number][3]:
+                            marked += 1
+                        if marked == 5:
+                            return True
+        return False
     
     # Checks every column for a line win.
     def checkColumnWin():
-        return None
+        for card in cards:
+            for square in card.squares():
+                for column in range(5):
+                    marked = 0
+                    for row in range(5):
+                        number = square[row][column]
+                        if lookUpTable[number][3]:
+                            marked += 1
+                        if marked == 5:
+                            return True
+        return False
     
     # Checks every diagonal for a line win.
     def checkDiagonalWin():
-        return None
+        for card in cards:
+            for square in card.squares():
+                marked1 = 0
+                marked2 = 0
+                for spot1 in enumerate(square):
+                    for spot2 in range(5, -1, -1):
+                        number1 = square[spot1][spot2]
+                        number2 = square[spot2][spot1]
+                        if lookUpTable[number1][3]:
+                             marked1 += 1
+                        if lookUpTable[number2][3]:
+                            marked2 += 1
+                        if marked1 == 5 or marked2 == 5:
+                            return True
+        return False
     
     # Checks every square for a full square win. 
     def checkSquareWin():
