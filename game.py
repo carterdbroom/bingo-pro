@@ -1,6 +1,6 @@
 ###################################################################################
 # Date Created: 2024-12-18
-# Date of Last Edit: 2024-12-18
+# Date of Last Edit: 2024-12-26
 ###################################################################################
 from card import Card
 class Game: 
@@ -73,15 +73,31 @@ class Game:
     
     # Checks every square for a full square win. 
     def checkSquareWin():
-        return None
+        for card in cards:
+            for square in card.squares():
+                marked = 0
+                for column in range(5):
+                    for row in range(5):
+                        number = square[row][column]
+                        if lookUpTable[number][3]:
+                            marked += 1
+                        if marked == 25: 
+                            return True
+        return False
     
     # Checks every card for a full card win.
     def checkCardWin():
-        return None
+        for card in cards:  
+            for square in card.squares():
+                for column in range(5):
+                    for row in range(5):
+                        number = square[row][column]
+                        if not lookUpTable[number][3]:
+                            return False
+        return True
     
     # Runs the game after preprocessing is done.
     def playGame() -> None:
-        
         answer = ""
         calledNumbers = []
         
